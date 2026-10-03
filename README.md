@@ -1,36 +1,40 @@
 # Acre
 
-**Pet Farm Tycoon** — Farming simulator growing specialized crops and pet treats for the care loop.
+**Species-aware farming for ComputerPets.**
 
-Part of [ComputerPets](https://github.com/RicheyWorks/computerpets). Map: [computerpets-ecosystem](https://github.com/RicheyWorks/computerpets-ecosystem).
+A planned farming game where biome-appropriate crops become treats for the pet care loop.
 
-| | |
+**Stage: design scaffold.** This checkout contains a design document and a source placeholder. The experience below is planned; there is no runnable app or integrated service yet.
+
+[Status](#status) · [Planned experience](#planned-experience) · [Contributor quickstart](#contributor-quickstart) · [Game design](docs/DESIGN.md) · [Ecosystem map](https://github.com/RicheyWorks/computerpets-ecosystem)
+
+## Status
+
+| Available today | What you can inspect |
 | --- | --- |
-| Status | Design scaffold — loop and engine frozen |
-| License | MIT |
-| Tokens | Minigames never mint or burn. Tired overlay, not a dead lineage. |
-| First pet | [Meet Rui first](https://github.com/RicheyWorks/computerpets/blob/main/docs/START-HERE.md). This game is optional. |
+| [Game design](docs/DESIGN.md) | Intended behavior, boundaries, and planned dependencies. |
+| [Source placeholder](src/Game.cs) | Empty C# class; no Unity project or scene is checked in. |
+| [MIT license](LICENSE) | Licensing terms for the repository. |
 
-## The loop
+Gameplay, endpoints, integration arrows, and failure handling on this page describe implementation targets. No build/test harness, CI workflow, or product screenshots are included in this scaffold.
 
-Treats have to come from somewhere. Acre is the field: bamboo, brine-weed, pond cress. Crops buff species that canonically eat them.
+## Planned experience
 
-## Who plays
+- Plot grid. Plant biome-legal seeds.
+- Pets assigned as farmhands (idle).
+- Harvest → inventory → Kettle or feed.
+- Drought day from Quests seed.
 
-Players growing species-legal food.
-
-## What it is not
-
-A cash shop for rain.
-
-## Genre and engine
+### Planned technology
 
 - Genre: **Farming sim**
 - Engine: **Unity**
 - Stack: Unity 6 · C# · crop tables per biome · treats feed Kettle and overlay
 - Default surface: `Unity editor`
 
-## Architecture
+### Planned connections
+
+These arrows show intended dependencies, rather than working integrations.
 
 ```mermaid
 flowchart LR
@@ -39,72 +43,48 @@ flowchart LR
   quests -->|drought| acre
 ```
 
-## How you play
+## Contributor quickstart
 
-1. Plot grid. Plant biome-legal seeds.
-2. Pets assigned as farmhands (idle).
-3. Harvest → inventory → Kettle or feed.
-4. Drought day from Quests seed.
+With access to this private repository, Git and PowerShell are enough to review the scaffold:
 
-## First slice
+```powershell
+git clone https://github.com/RicheyWorks/computerpets-acre.git
+Set-Location computerpets-acre
+Get-Content docs/DESIGN.md
+Get-Content src/Game.cs
+```
 
-Build this and stop.
+Read [Game design](docs/DESIGN.md) before choosing implementation details. The commands above inspect the checked-in files; app installation, editor launch, and server startup become possible after a buildable project and entry point are added.
+
+### First implementation target
 
 **Bamboo plot, one harvest into feed inventory.**
 
 You know it works when: Wrong crop withers with an explanation. Server down: local day continues.
 
-## Environment
+Treat this as an acceptance target for a future implementation. Start with the documented slice, add the required project setup and focused tests, and update these instructions with commands that work from a fresh clone.
 
-Unity 6
+## Design boundaries
 
-## Failure doctrine
+1. Minigames cannot mint or burn NFTs by themselves (Minter is the write path).
+2. Stats come from lived overlay care + Dojo caps, not cash shop.
+3. Species kits stay inside Lore. Illegal hybrids never spawn.
+4. Fail soft: the desktop overlay process is not this process.
+
+**Required failure behavior:**
 
 Wrong crop for species → wither, explain. Server down → local day continues, sync later. No microtransactions for rain.
 
-Canon rules that never yield:
+## Ecosystem
 
-- 210 living kinds. No illegal hybrids.
-- Overlay pets can get tired, sick, or hide. Tokens are not burned by a minigame.
-- Desktop walk stays the main quest. Closing Acre must leave Rui walking.
+- [computerpets-kettle](https://github.com/RicheyWorks/computerpets-kettle)
+- [computerpets-lure](https://github.com/RicheyWorks/computerpets-lure)
+- [computerpets-hearth](https://github.com/RicheyWorks/computerpets-hearth)
+- [computerpets-ledger](https://github.com/RicheyWorks/computerpets-ledger)
+- [computerpets-quests](https://github.com/RicheyWorks/computerpets-quests)
 
-## Neighbors
-
-- computerpets-kettle
-- computerpets-lure
-- computerpets-hearth
-- computerpets-ledger
-- computerpets-quests
-
-## Layout
-
-```
-computerpets-acre/
-  README.md
-  LICENSE
-  docs/DESIGN.md
-  src/                implementation lands here
-```
-
-## Run (Windows)
-
-```powershell
-Unity Hub > Acre/; play mode.
-```
-
-Meet Rui first via the [flagship start-here](https://github.com/RicheyWorks/computerpets/blob/main/docs/START-HERE.md). This game is optional.
-
-## Links
-
-- Flagship: [RicheyWorks/computerpets](https://github.com/RicheyWorks/computerpets)
-- This repo: [RicheyWorks/computerpets-acre](https://github.com/RicheyWorks/computerpets-acre)
-- Map: [RicheyWorks/computerpets-ecosystem](https://github.com/RicheyWorks/computerpets-ecosystem)
-- Design file: [docs/DESIGN.md](docs/DESIGN.md)
+Start with the [ComputerPets flagship](https://github.com/RicheyWorks/computerpets) for the desktop pet. This repository describes an optional extension; the [ecosystem map](https://github.com/RicheyWorks/computerpets-ecosystem) explains the broader plan.
 
 ## License
 
 MIT. See [LICENSE](LICENSE).
-
----
-
-*Two hundred ten living kinds. Keep them so a line does not go quiet.*
